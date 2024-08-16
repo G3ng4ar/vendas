@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Vendas;
@@ -75,6 +76,36 @@ public class VendasController {
 			return new ResponseEntity<>("Funcionario deletado com sucesso!", HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByCliente")
+	public ResponseEntity<List<Vendas>> findByClienteNome(@RequestParam String nome) {
+		try {
+			List<Vendas> venda = this.vendasService.findByClienteNome(nome);
+			return new ResponseEntity<>(venda, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByFuncionario")
+	public ResponseEntity<List<Vendas>> findByFuncionarioNome(@RequestParam String nome) {
+		try {
+			List<Vendas> venda = this.vendasService.findByFuncionarioNome(nome);
+			return new ResponseEntity<>(venda, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findAllByTotal")
+	public ResponseEntity<List<Vendas>> findAllByOrderByTotalDesc() {
+		try {
+			List<Vendas> venda = this.vendasService.findAllByOrderByTotalDesc();
+			return new ResponseEntity<>(venda, HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}

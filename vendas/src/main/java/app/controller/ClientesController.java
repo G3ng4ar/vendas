@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Clientes;
@@ -75,6 +76,16 @@ public class ClientesController {
 			return new ResponseEntity<>("Cliente deletado com sucesso!", HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findAllByIdade")
+	public ResponseEntity<List<Clientes>> findAllByIdade(@RequestParam int idadeMin, @RequestParam int idadeMax) {
+		try {
+			List<Clientes> cliente = this.clientesService.findAllByIdadeBetween(idadeMin, idadeMax);
+			return new ResponseEntity<>(cliente, HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}

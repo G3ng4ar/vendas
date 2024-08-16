@@ -47,4 +47,9 @@ public class ClientesService {
 		clientesRepository.delete(clientes);
 	}
 	
+	public List<Clientes> findAllByIdadeBetween (int idadeMin, int idadeMax) {
+		return this.clientesRepository.findAllByIdadeBetween(idadeMin, idadeMax);
+	}
+
+	
 }

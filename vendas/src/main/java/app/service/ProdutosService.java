@@ -1,5 +1,6 @@
 package app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,4 +41,13 @@ public class ProdutosService {
 		produtos.setId(id);
 		produtosRepository.delete(produtos);
 	}
+	
+	public List<Produtos> findAllByOrderByPrecoDesc(){
+		List<Produtos> produtos = this.produtosRepository.findAllByOrderByPrecoDesc();
+		ArrayList<Produtos> lista = new ArrayList<>(10);
+		for (int i = 0; i < Math.min(produtos.size(), 10); i++)
+            lista.add(produtos.get(i));
+		return lista;
+	}
+
 }

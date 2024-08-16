@@ -79,4 +79,14 @@ public class ProdutosController {
 		}
 	}
 	
+	@GetMapping("/findAllByPreco")
+	public ResponseEntity<List<Produtos>> findAllOrderByPreco() {
+		try {
+			List<Produtos> produtos = this.produtosService.findAllByOrderByPrecoDesc();
+			return new ResponseEntity<>(produtos, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 }
